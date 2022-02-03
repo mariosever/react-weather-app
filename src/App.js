@@ -1,4 +1,4 @@
-import './App.scss';
+import './App.css';
 import React from 'react';
 import SearchBar from './components/searchbar';
 import CurrentWeather from './components/current-weather';
