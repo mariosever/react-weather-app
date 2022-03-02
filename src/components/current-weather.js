@@ -5,8 +5,14 @@ class CurrentWeather extends React.Component {
 
         const icon = `http://openweathermap.org/img/wn/${this.props.icon}@4x.png`;
 
+        const bgimage = `img/backgrounds/${this.props.description}.jpg`;
+
         return (
             <div className="current-weather">
+
+                <div className="weather-background">
+                    <img className="weather-background__image" src={bgimage} alt={this.props.description} />
+                </div>
 
                 <div className="current-weather__temp">
                     <h3 className="current-weather__name">{this.props.name}</h3>
