@@ -12,6 +12,7 @@ class App extends React.Component{
     this.state = {
         location: '',
         temp: '',
+        humidity: '',
         feelsLike: '',
         description: '',
         icon: '',
@@ -30,6 +31,7 @@ class App extends React.Component{
       getCurrentWeather(this.state.location).then((res) => {
           this.setState({
               temp: res.data.main.temp,
+              humidity: res.data.main.humidity,
               feelsLike: res.data.main.feels_like,
               description: res.data.weather[0].main,
               icon: res.data.weather[0].icon,
@@ -42,20 +44,29 @@ class App extends React.Component{
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <SearchBar 
-            location={this.state.location} 
-            inputChange={(e) => this.onInputChange(e)} 
-            formSubmitted={() => this.onFormSubmit()}
-          />
-          <CurrentWeather 
-            name={this.state.name}
-            currentTemperature={this.state.temp} 
-            feelsLike={this.state.feelsLike}
-            description={this.state.description}
-            icon={this.state.icon}
-          />
-        </header>
+
+        <div className="wrapper">
+
+          <header className="App-header">
+            <SearchBar 
+              location={this.state.location} 
+              inputChange={(e) => this.onInputChange(e)} 
+              formSubmitted={() => this.onFormSubmit()}
+            />
+          </header>
+
+          <div className="Weather-info">
+            <CurrentWeather 
+              name={this.state.name}
+              currentTemperature={this.state.temp} 
+              humidity={this.state.humidity}
+              feelsLike={this.state.feelsLike}
+              description={this.state.description}
+              icon={this.state.icon}
+            />  
+          </div>
+
+        </div>
       </div>
     );
   }
