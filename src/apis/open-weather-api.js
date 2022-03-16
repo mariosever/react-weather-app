@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'a584720c43c130d020ae58d96440565e';
+const API_KEY = 'add your api';
 
 function getCurrentWeather(location) {
 
