@@ -1,56 +1,25 @@
-body {
+html, body, #root {
+  height: 100%;
+}
+
+#root {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  font-size: 16px;
-  background: #43affc;
 }
 
-
-.wrapper {
-  width: 400px;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 7px 7px 20px rgba(0,0,0,.05);
-}
-
-.App-header {
-    display: flex;
-    font-size: 1.31em;
-    font-weight: 500;
-    color: #43affc;
-    padding: 16px 15px;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    justify-content: center;
-}
-
-
-.Weather-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+#app {
+  margin: auto;
   text-align: center;
+  background-color: rgb(27, 27, 27);
+  width: 360px;
+  height: 740px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.weather-background__image {
-  width: 100%;
-  height: auto;
-}
-
-.current-weather {
-  width: 100%;
-  color: #fff;
-}
-
-.current-weather__temp {
-  padding: 40px 0;
-}
-
-.current-weather__info {
-  background: #fff;
-  color: #000;
-}
-
+/*#menu {
+  display: none;
+}*/
