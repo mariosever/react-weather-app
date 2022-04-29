@@ -2,7 +2,8 @@ import './App.css';
 import React from 'react';
 import SearchBar from './components/searchbar';
 import CurrentWeather from './components/current-weather';
-import { getCurrentWeather, getLocationData } from './apis/open-weather-api';
+import { getCurrentWeather, getForecast, getLocationData } from './apis/open-weather-api';
+import Forecast from './components/forecast-weather';
 
 
 class App extends React.Component{
@@ -15,7 +16,8 @@ class App extends React.Component{
 			feelsLike: '',
 			description: '',
 			icon: '',
-			name: 'Loading...'
+			name: 'Loading...',
+			hourlyForecast: []
 		};
 	}
 
@@ -33,21 +35,35 @@ class App extends React.Component{
     }
 	
 
-	onFormSubmit(x) {
-			getCurrentWeather(x || this.state.location).then((res) => {
-					this.setState({
-							temp: res.data.main.temp,
-							feelsLike: res.data.main.feels_like,
-							description: res.data.weather[0].main,
-							icon: res.data.weather[0].icon,
-							name: res.data.name
-					});
+	async onFormSubmit(x) {
+			const weatherRes = await getCurrentWeather(x || this.state.location);
+			const lat = weatherRes.data.coord.lat;
+			const lon = weatherRes.data.coord.lon;	
+			const forecastRes = await getForecast(lat, lon);
+			
+			this.setState({
+				temp: weatherRes.data.main.temp,
+				feelsLike: weatherRes.data.main.feels_like,
+				description: weatherRes.data.weather[0].main,
+				icon: weatherRes.data.weather[0].icon,
+				name: weatherRes.data.name,
+				hourlyForecast: forecastRes.data.hourly
 			});
+
 	}
 
 	render() {
 		return (
 			<div id="app">
+
+				<div id="menu">
+					<SearchBar 
+						location={this.state.location} 
+						inputChange={(e) => this.onInputChange(e)} 
+						formSubmitted={() => this.onFormSubmit()}
+					/>
+				</div>	
+
 				<CurrentWeather 
 					name={this.state.name}
 					currentTemperature={this.state.temp} 
@@ -55,12 +71,13 @@ class App extends React.Component{
 					description={this.state.description}
 					icon={this.state.icon}
 				/>
-				<div id="menu">
-					<SearchBar 
-						location={this.state.location} 
-						inputChange={(e) => this.onInputChange(e)} 
-						formSubmitted={() => this.onFormSubmit()}
-					/>
+
+				<h4 className='hourly-title'>Hourly forecast:</h4>
+
+				<div className='hourly-forecast__container'>
+				
+					<Forecast forecast={this.state.hourlyForecast} />
+
 				</div>
 			</div>
 		);

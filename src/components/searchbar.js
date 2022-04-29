@@ -17,8 +17,9 @@ class SearchBar extends React.Component {
 
         return(
             <form onSubmit={(e) => this.onFormSubmit(e)}>
-                <button type="submit">Search</button>
-                <input id="search" name="search" value={location} onChange={(e) => this.onInputChange(e)} />
+                {/*<button type="submit">Search</button>*/}
+                
+                <input type="search" id="search" name="search" value={location} onChange={(e) => this.onInputChange(e)} />
             </form>
         )
     }
